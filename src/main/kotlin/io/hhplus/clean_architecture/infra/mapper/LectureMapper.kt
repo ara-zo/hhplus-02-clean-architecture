@@ -6,10 +6,10 @@ import io.hhplus.clean_architecture.infra.entity.LectureEntity
 
 object LectureMapper {
     fun toDomain(lectureEntity: LectureEntity): Lecture {
-        return Lecture.create(lectureEntity.id, lectureEntity.lectureName)
+        return Lecture.create(lectureEntity.id, lectureEntity.lectureName, lectureEntity.professorName)
     }
 
     fun toEntity(lecture: Lecture): LectureEntity {
-        return LectureEntity(lecture.id, lecture.lectureName)
+        return LectureEntity(lecture.id, lecture.lectureName, lecture.professorName)
     }
 }

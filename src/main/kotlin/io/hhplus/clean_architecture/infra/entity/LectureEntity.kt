@@ -16,5 +16,9 @@ data class LectureEntity(
 
     @Column(nullable = false)
     @Comment("특강명")
-    var lectureName: String
+    var lectureName: String,
+
+    @Column(nullable = false)
+    @Comment("교수명")
+    var professorName: String
 ) : BaseEntity()

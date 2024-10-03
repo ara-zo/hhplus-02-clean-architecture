@@ -15,9 +15,9 @@ ALTER TABLE lecture_history
     ALTER COLUMN id RESTART WITH 1;
 
 -- Insert data into lecture table
-INSERT INTO lecture (lecture_name, create_date_time, update_date_time)
-VALUES ('TDD', '2024-10-01 12:00:00', '2024-10-01 12:00:00'),
-       ('Clean Architecture', '2024-10-01 12:00:00', '2024-10-01 12:00:00');
+INSERT INTO lecture (lecture_name, professor_name, create_date_time, update_date_time)
+VALUES ('TDD', '홍길동', '2024-10-01 12:00:00', '2024-10-01 12:00:00'),
+       ('Clean Architecture', '강길동', '2024-10-01 12:00:00', '2024-10-01 12:00:00');
 
 -- Insert data into lecture_schedule table
 INSERT INTO lecture_schedule (lecture_id, lecture_date_time, register_cnt, capacity, create_date_time)
