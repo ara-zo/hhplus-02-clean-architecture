@@ -14,6 +14,7 @@ import java.time.LocalDate
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true, rollbackFor = [Exception::class])
 class LectureService(
     private var lectureRepository: LectureRepository,
     private var lectureScheduleRepository: LectureScheduleRepository,

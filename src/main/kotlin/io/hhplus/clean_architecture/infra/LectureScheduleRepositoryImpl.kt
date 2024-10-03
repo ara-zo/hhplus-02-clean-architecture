@@ -4,7 +4,6 @@ import io.hhplus.clean_architecture.domain.lecture.Lecture
 import io.hhplus.clean_architecture.domain.lecture.LectureSchedule
 import io.hhplus.clean_architecture.domain.lecture.repository.LectureScheduleRepository
 import io.hhplus.clean_architecture.infra.mapper.LectureScheduleMapper
-import jakarta.persistence.EntityNotFoundException
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Repository
 import java.time.LocalDate
@@ -16,9 +15,7 @@ class LectureScheduleRepositoryImpl(
     private val lectureScheduleJpaRepository: LectureScheduleJpaRepository
 ) : LectureScheduleRepository {
     override fun findById(lectureScheduleId: Long): LectureSchedule {
-        return lectureScheduleJpaRepository.findById(lectureScheduleId)
-            .map(LectureScheduleMapper::toDomain)
-            .orElseThrow { EntityNotFoundException() }
+        return LectureScheduleMapper.toDomain(lectureScheduleJpaRepository.findLectureScheduleById(lectureScheduleId))
     }
 
     override fun findAllLectureScheduleList(lecture: Lecture): List<LectureSchedule> {
