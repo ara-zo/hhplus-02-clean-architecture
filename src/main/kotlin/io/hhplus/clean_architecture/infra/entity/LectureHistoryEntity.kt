@@ -12,7 +12,7 @@ data class LectureHistoryEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("특강 신청 내역 id")
-    val id: Long,
+    val id: Long?,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_schedule_id")

@@ -10,6 +10,6 @@ class ApplyLectureValidator(
     private val lectureHistoryRepository: LectureHistoryRepository
 ) : LectureValidator {
     override fun checkApplyLecture(lectureSchedule: LectureSchedule, userId: Long): Boolean {
-        return lectureHistoryRepository.findLectureHistoryByLectureScheduleAndUserId(lectureSchedule, userId) != null
+        return lectureHistoryRepository.findLectureHistoryByLectureScheduleAndUserId(lectureSchedule, userId).isNotEmpty()
     }
 }

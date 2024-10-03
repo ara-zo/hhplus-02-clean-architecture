@@ -30,7 +30,7 @@ class LectureService(
         val apply = lectureSchedule.apply(lectureValidator, userId)
 
         // 특강 내역 등록
-        lectureHistoryRepository.save(LectureHistory.create(null, lectureScheduleRepository.save(apply), userId!!))
+        lectureHistoryRepository.save(LectureHistory.create(null, lectureScheduleRepository.save(apply), userId))
         return lectureSchedule
     }
 
