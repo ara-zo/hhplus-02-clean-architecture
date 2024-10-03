@@ -1,7 +1,8 @@
 package io.hhplus.clean_architecture.controller
 
-import io.hhplus.clean_architecture.domain.lecture.Lecture
-import io.hhplus.clean_architecture.domain.lecture.LectureSchedule
+import io.hhplus.clean_architecture.controller.dto.ApplyLectureResponse
+import io.hhplus.clean_architecture.controller.dto.FindLectureResponse
+import io.hhplus.clean_architecture.controller.dto.FindLectureScheduleResponse
 import io.hhplus.clean_architecture.domain.lecture.service.LectureService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -17,8 +18,9 @@ class LectureController(
     fun apply(
         @PathVariable lectureScheduledId: Long,
         @RequestParam userId: Long
-    ): ResponseEntity<LectureSchedule> {
-        return ResponseEntity.ok(lectureService.apply(lectureScheduleId = lectureScheduledId, userId = userId))
+    ): ResponseEntity<ApplyLectureResponse> {
+        val result = lectureService.apply(lectureScheduleId = lectureScheduledId, userId = userId)
+        return ResponseEntity.ok(ApplyLectureResponse.of(result))
     }
 
     // 유저 신청 특강 목록
@@ -32,22 +34,32 @@ class LectureController(
 
     // 특강 목록
     @GetMapping
-    fun findAllLecutureList(): ResponseEntity<List<Lecture>> {
-        return ResponseEntity.ok(lectureService.findAllLectureList())
+    fun findAllLecutureList(): ResponseEntity<List<FindLectureResponse>> {
+        return ResponseEntity.ok(lectureService.findAllLectureList().map(FindLectureResponse::of))
     }
 
     // 특강 스케쥴 목록
     @GetMapping("/schedule/{lectureId}")
     fun findAllLectureScheduleList(
         @PathVariable lectureId: Long,
-    ): ResponseEntity<List<LectureSchedule>> {
-        return ResponseEntity.ok(lectureService.findAllLectureScheduleList(lectureId))
+    ): ResponseEntity<List<FindLectureScheduleResponse>> {
+        return ResponseEntity.ok(
+            lectureService.findAllLectureScheduleList(lectureId)
+                .map(FindLectureScheduleResponse::of)
+                .toList()
+        )
     }
 
+    // 날짜별 특강 스케쥴 목록 조회
+    @GetMapping("/schedule")
     fun findLectureScheduleBySearchDate(
         @RequestParam searchDate: LocalDate,
-    ): ResponseEntity<List<LectureSchedule>> {
-        return ResponseEntity.ok(lectureService.findLectureScheduleBySearchDate(searchDate))
+    ): ResponseEntity<List<FindLectureScheduleResponse>> {
+        return ResponseEntity.ok(
+            lectureService.findLectureScheduleBySearchDate(searchDate)
+                .map(FindLectureScheduleResponse::of)
+                .toList()
+        )
     }
 
 }
